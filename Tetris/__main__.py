@@ -50,9 +50,8 @@ def main():
     robot.set_color(WHITE)
     robot.set_position(position)
     
-    DOWN = Point(0, 1)
-    direction = DOWN.scale(CELL_SIZE)
-    robot.set_velocity(direction)
+    DOWN = Point(0, 1).scale(CELL_SIZE)
+    robot.set_velocity(DOWN)
 
     cast.add_actor("robots", robot)
     
