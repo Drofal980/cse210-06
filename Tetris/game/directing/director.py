@@ -36,11 +36,6 @@ class Director:
 
         artifacts = cast.get_actors("artifacts")
 
-        # Directs artifacts to move
-        move_velocity = Point(ARTIFACT_X_SPEED, ARTIFACT_Y_SPEED)
-        for artifact in artifacts:
-            artifact.set_velocity(move_velocity)
-
         while self._video_service.is_window_open():
             self._get_inputs(cast)
             self._do_updates(cast)
@@ -55,8 +50,8 @@ class Director:
         """
         robot = cast.get_first_actor("robots")
 
-        velocity = self._keyboard_service.get_direction()
-        robot.set_velocity(velocity)
+        #velocity = self._keyboard_service.get_direction()
+        #robot.set_velocity(velocity)
 
     def _do_updates(self, cast):
         """Updates the robot's position and resolves any collisions with artifacts.
@@ -72,21 +67,6 @@ class Director:
         max_x = self._video_service.get_width()
         max_y = self._video_service.get_height()
         robot.move_next(max_x, max_y)
-
-        for artifact in artifacts:
-            artifact.move_next(max_x, max_y)
-            
-            if robot.get_position().equals(artifact.get_position()):
-                if artifact.get_text() == "*":
-                    self._score += 1
-                    cast.remove_actor("artifacts", artifact)
-                    
-                elif artifact.get_text().lower() == "o":
-                    self._score -= 1
-                    cast.remove_actor("artifacts", artifact)
-
-            message = "Score: " + str(self._score)
-            banner.set_text(message)
                 
         
     def _do_outputs(self, cast):
