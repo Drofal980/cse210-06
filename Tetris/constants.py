@@ -77,32 +77,13 @@ RELEASE = 6
 
 # STATS
 STATS_GROUP = "stats"
-# DEFAULT_LIVES = 3
-# MAXIMUM_LIVES = 5
 
 # HUD
 HUD_MARGIN = 15
 LEVEL_GROUP = "level"
-# LIVES_GROUP = "lives"
 SCORE_GROUP = "score"
 LEVEL_FORMAT = "LEVEL: {}"
-# LIVES_FORMAT = "LIVES: {}"
 SCORE_FORMAT = "SCORE: {}"
-
-# BALL
-# BALL_GROUP = "balls"
-# BALL_IMAGE = "games/batter-my-completed/batter/assets/images\\000.png"
-# BALL_WIDTH = 28
-# BALL_HEIGHT = 28
-# BALL_VELOCITY = 6
-
-# RACKET
-# RACKET_GROUP = "rackets"
-# RACKET_IMAGES = [f"games/batter-my-completed/batter/assets/images\\{n:03}.png" for n in range(100, 103)]
-# RACKET_WIDTH = 106
-# RACKET_HEIGHT = 28
-# RACKET_RATE = 6
-# RACKET_VELOCITY = 7
 
 # BRICK
 BRICK_GROUP = "bricks"

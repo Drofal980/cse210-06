@@ -10,6 +10,7 @@ class CollideBordersAction(Action):
         self._audio_service = audio_service    
         
     def execute(self, cast, script, callback):
+        # todo: Change to incorperate pieces from user
         ball = cast.get_first_actor(BALL_GROUP)
         body = ball.get_body()
         position = body.get_position()
