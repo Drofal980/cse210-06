@@ -1,9 +1,7 @@
 from game.casting.actor import Actor
 from game.shared.point import Point
 
-# TODO: Implement the Artifact class here. Don't forget to inherit from Actor!
-
-class Artifact(Actor):
+class Block(Actor):
     """A visible, unmoveable thing that participates in the game. 
     
     The responsibility of Artifact is to keep track of its appearance, position and velocity in 2d 
@@ -49,7 +47,3 @@ class Artifact(Actor):
     
     def move_next(self, max_x, max_y):
         return super().move_next(max_x, max_y)
-
-    
-
-    
