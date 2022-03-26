@@ -87,12 +87,12 @@ SCORE_FORMAT = "SCORE: {}"
 BRICK_GROUP = "bricks"
 IMAGES_PATH = "cse210-06/Tetris/assets/images"
 BRICK_IMAGES = {
-    "b": [IMAGES_PATH + f"\\{i:03}.png" for i in range(10,19)],
-    "g": [IMAGES_PATH + f"\\{i:03}.png" for i in range(20,29)],
-    "p": [IMAGES_PATH + f"\\{i:03}.png" for i in range(30,39)],
-    "y": [IMAGES_PATH + f"\\{i:03}.png" for i in range(40,49)]
+    "b": [IMAGES_PATH + "\\010.png"],
+    "g": [IMAGES_PATH + "\\011.png"],
+    "p": [IMAGES_PATH + "\\012.png"],
+    "y": [IMAGES_PATH + "\\013.png"]
 }
-BRICK_WIDTH = 80
+BRICK_WIDTH = 28
 BRICK_HEIGHT = 28
 BRICK_DELAY = 0.5
 BRICK_RATE = 4
