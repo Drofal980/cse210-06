@@ -21,14 +21,14 @@ FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
 
 # FONT
-FONT_FILE = "games/batter-my-completed/batter/assets/fonts\\zorque.otf"
+FONT_FILE = "cse210-06/Tetris/game/assets/fonts\\zorque.otf"
 FONT_SMALL = 32
 FONT_LARGE = 48
 
 # SOUND
-BOUNCE_SOUND = "games/batter-my-completed/batter/assets/sounds\\boing.wav"
-WELCOME_SOUND = "games/batter-my-completed/batter/assets/sounds\\start.wav"
-OVER_SOUND = "games/batter-my-completed/batter/assets/sounds\\over.wav"
+BOUNCE_SOUND = "cse210-06/Tetris/assets/sounds\\boing.wav"
+WELCOME_SOUND = "cse210-06/Tetris/assets/sounds\\start.wav"
+OVER_SOUND = "cse210-06/Tetris/assets/sounds\\over.wav"
 
 # TEXT
 ALIGN_CENTER = 0
@@ -53,10 +53,6 @@ TRY_AGAIN = 1
 NEXT_LEVEL = 2
 IN_PLAY = 3
 GAME_OVER = 4
-
-# LEVELS
-LEVEL_FILE = "games/batter-my-completed/batter/assets/data\\level-{:03}.txt"
-BASE_LEVELS = 5
 
 # -------------------------------------------------------------------------------------------------- 
 # SCRIPTING CONSTANTS
@@ -88,10 +84,10 @@ SCORE_FORMAT = "SCORE: {}"
 # BRICK
 BRICK_GROUP = "bricks"
 BRICK_IMAGES = {
-    "b": [f"games/batter-my-completed/batter/assets/images\\{i:03}.png" for i in range(10,19)],
-    "g": [f"games/batter-my-completed/batter/assets/images\\{i:03}.png" for i in range(20,29)],
-    "p": [f"games/batter-my-completed/batter/assets/images\\{i:03}.png" for i in range(30,39)],
-    "y": [f"games/batter-my-completed/batter/assets/images\\{i:03}.png" for i in range(40,49)]
+    "b": [f"cse210-06/Tetris/assets/images\\{i:03}.png" for i in range(10,19)],
+    "g": [f"cse210-06/Tetris/assets/images\\{i:03}.png" for i in range(20,29)],
+    "p": [f"cse210-06/Tetris/assets/images\\{i:03}.png" for i in range(30,39)],
+    "y": [f"cse210-06/Tetris/assets/images\\{i:03}.png" for i in range(40,49)]
 }
 BRICK_WIDTH = 80
 BRICK_HEIGHT = 28
