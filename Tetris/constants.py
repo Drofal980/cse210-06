@@ -21,14 +21,16 @@ FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
 
 # FONT
-FONT_FILE = "cse210-06/tetris/assets/fonts\\zorque.otf"
+FONT_FILE_PATH = "cse210-06/Tetris/assets/fonts"
+FONT_FILE = FONT_FILE_PATH + "\\zorque.otf"
 FONT_SMALL = 32
 FONT_LARGE = 48
 
 # SOUND
-BOUNCE_SOUND = "cse210-06/Tetris/assets/sounds\\boing.wav"
-WELCOME_SOUND = "cse210-06/Tetris/assets/sounds\\start.wav"
-OVER_SOUND = "cse210-06/Tetris/assets/sounds\\over.wav"
+SOUNDS_PATH = "cse210-06/Tetris/assets/sounds"
+BOUNCE_SOUND = SOUNDS_PATH + "\\boing.wav"
+WELCOME_SOUND = SOUNDS_PATH + "\\start.wav"
+OVER_SOUND = SOUNDS_PATH + "\\over.wav"
 
 # TEXT
 ALIGN_CENTER = 0
@@ -83,11 +85,12 @@ SCORE_FORMAT = "SCORE: {}"
 
 # BRICK
 BRICK_GROUP = "bricks"
+IMAGES_PATH = "cse210-06/Tetris/assets/images"
 BRICK_IMAGES = {
-    "b": [f"cse210-06/Tetris/assets/images\\{i:03}.png" for i in range(10,19)],
-    "g": [f"cse210-06/Tetris/assets/images\\{i:03}.png" for i in range(20,29)],
-    "p": [f"cse210-06/Tetris/assets/images\\{i:03}.png" for i in range(30,39)],
-    "y": [f"cse210-06/Tetris/assets/images\\{i:03}.png" for i in range(40,49)]
+    "b": [IMAGES_PATH + f"\\{i:03}.png" for i in range(10,19)],
+    "g": [IMAGES_PATH + f"\\{i:03}.png" for i in range(20,29)],
+    "p": [IMAGES_PATH + f"\\{i:03}.png" for i in range(30,39)],
+    "y": [IMAGES_PATH + f"\\{i:03}.png" for i in range(40,49)]
 }
 BRICK_WIDTH = 80
 BRICK_HEIGHT = 28
