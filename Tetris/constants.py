@@ -21,7 +21,7 @@ FIELD_LEFT = 0
 FIELD_RIGHT = SCREEN_WIDTH
 
 # FONT
-FONT_FILE = "cse210-06/Tetris/game/assets/fonts\\zorque.otf"
+FONT_FILE = "cse210-06/tetris/assets/fonts\\zorque.otf"
 FONT_SMALL = 32
 FONT_LARGE = 48
 
