@@ -24,6 +24,14 @@ class Brick(Actor):
             An instance of Body.
         """
         return self._body
+    
+    def get_image(self):
+        """Gets the brick's image.
+        
+        Returns:
+            An instance of Image.
+        """
+        return self._image
 
     def get_points(self):
         """Gets the brick's points.

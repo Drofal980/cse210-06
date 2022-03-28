@@ -16,6 +16,7 @@ from game.scripting.collide_brick_action import CollideBrickAction
 from game.scripting.draw_dialog_action import DrawDialogAction
 from game.scripting.draw_hud_action import DrawHudAction
 from game.scripting.draw_grid_action import DrawGridAction
+from game.scripting.draw_bricks_action import DrawBricksAction
 from game.scripting.end_drawing_action import EndDrawingAction
 from game.scripting.initialize_devices_action import InitializeDevicesAction
 from game.scripting.load_assets_action import LoadAssetsAction
@@ -44,6 +45,7 @@ class SceneManager:
     DRAW_DIALOG_ACTION = DrawDialogAction(VIDEO_SERVICE)
     DRAW_HUD_ACTION = DrawHudAction(VIDEO_SERVICE)
     DRAW_GRID_ACTION = DrawGridAction(VIDEO_SERVICE)
+    DRAW_BRICKS_ACTION = DrawBricksAction(VIDEO_SERVICE)
     END_DRAWING_ACTION = EndDrawingAction(VIDEO_SERVICE)
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -73,6 +75,7 @@ class SceneManager:
     def _prepare_new_game(self, cast, script):
         self._add_stats(cast)
         self._add_grid(cast)
+        self._add_bricks(cast)
         self._add_score(cast)
         self._add_dialog(cast, ENTER_TO_START)
 
@@ -121,8 +124,8 @@ class SceneManager:
 
     def _add_dialog(self, cast, message):
         cast.clear_actors(DIALOG_GROUP)
-        text = Text(message, FONT_FILE, FONT_SMALL, ALIGN_LEFT)
-        position = Point(HUD_MARGIN, CENTER_Y)
+        text = Text(message, FONT_FILE, FONT_SMALL, ALIGN_CENTER)
+        position = Point(CENTER_X, CENTER_Y)
         label = Label(text, position)
         cast.add_actor(DIALOG_GROUP, label)
 
@@ -147,8 +150,41 @@ class SceneManager:
         velocity = Point(0, 0)
         body = Body(position, size, velocity)
         image = Image(GRID_IMAGE)
-        grid = Grid(body, image, velocity)
+        matrix = [[0 for i in range(GRID_COLUMNS)] for i in range(GRID_ROWS)]
+        grid = Grid(body, image, matrix)
         cast.add_actor(GRID_GROUP, grid)
+
+    def _add_bricks(self, cast):
+        grid = cast.get_first_actor(GRID_GROUP)
+        board = grid.get_matrix()
+
+        #TESTING
+        board[5][1] = 1
+        board[5][2] = 1
+        board[5][3] = 1
+        board[5][4] = 1
+        board[5][5] = 1
+        board[5][6] = 1
+
+
+        for r in range(GRID_ROWS):
+            for c in range(GRID_COLUMNS):
+                if board[r][c] != 0:
+
+                    x = FIELD_LEFT + c * BRICK_WIDTH
+                    y = FIELD_TOP + r * BRICK_HEIGHT
+                    points = BRICK_POINTS
+
+                    position = Point(x, y)
+                    size = Point(BRICK_WIDTH, BRICK_HEIGHT)
+                    velocity = Point(0, 0)
+
+                    body = Body(position, size, velocity)
+                    image = Image(BRICK_IMAGES['b'][0])
+
+                    brick = Brick(body, image, points)
+                    cast.add_actor(BRICK_GROUP, brick)
+
 
     # ----------------------------------------------------------------------------------------------
     # scripting methods
@@ -166,6 +202,7 @@ class SceneManager:
         script.add_action(OUTPUT, self.START_DRAWING_ACTION)
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.DRAW_GRID_ACTION)
+        script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
