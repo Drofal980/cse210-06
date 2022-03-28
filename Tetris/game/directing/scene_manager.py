@@ -8,12 +8,14 @@ from game.casting.label import Label
 from game.casting.point import Point
 from game.casting.stats import Stats
 from game.casting.text import Text 
+from game.casting.grid import Grid
 from game.scripting.change_scene_action import ChangeSceneAction
 from game.scripting.check_over_action import CheckOverAction
 from game.scripting.collide_borders_action import CollideBordersAction
 from game.scripting.collide_brick_action import CollideBrickAction
 from game.scripting.draw_dialog_action import DrawDialogAction
 from game.scripting.draw_hud_action import DrawHudAction
+from game.scripting.draw_grid_action import DrawGridAction
 from game.scripting.end_drawing_action import EndDrawingAction
 from game.scripting.initialize_devices_action import InitializeDevicesAction
 from game.scripting.load_assets_action import LoadAssetsAction
@@ -41,6 +43,7 @@ class SceneManager:
     COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     DRAW_DIALOG_ACTION = DrawDialogAction(VIDEO_SERVICE)
     DRAW_HUD_ACTION = DrawHudAction(VIDEO_SERVICE)
+    DRAW_GRID_ACTION = DrawGridAction(VIDEO_SERVICE)
     END_DRAWING_ACTION = EndDrawingAction(VIDEO_SERVICE)
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -69,7 +72,7 @@ class SceneManager:
     
     def _prepare_new_game(self, cast, script):
         self._add_stats(cast)
-        self._add_next(cast)
+        self._add_grid(cast)
         self._add_score(cast)
         self._add_dialog(cast, ENTER_TO_START)
 
@@ -118,22 +121,15 @@ class SceneManager:
 
     def _add_dialog(self, cast, message):
         cast.clear_actors(DIALOG_GROUP)
-        text = Text(message, FONT_FILE, FONT_SMALL, ALIGN_CENTER)
-        position = Point(CENTER_X, CENTER_Y)
+        text = Text(message, FONT_FILE, FONT_SMALL, ALIGN_LEFT)
+        position = Point(HUD_MARGIN, CENTER_Y)
         label = Label(text, position)
         cast.add_actor(DIALOG_GROUP, label)
 
-    def _add_next(self, cast):
-        cast.clear_actors(NEXT_GROUP)
-        text = Text(NEXT_FORMAT, FONT_FILE, FONT_SMALL, ALIGN_LEFT)
-        position = Point(HUD_MARGIN, HUD_MARGIN)
-        label = Label(text, position)
-        cast.add_actor(NEXT_GROUP, label)
-
     def _add_score(self, cast):
         cast.clear_actors(SCORE_GROUP)
-        text = Text(SCORE_FORMAT, FONT_FILE, FONT_SMALL, ALIGN_CENTER)
-        position = Point(CENTER_X, HUD_MARGIN)
+        text = Text(SCORE_FORMAT, FONT_FILE, FONT_SMALL, ALIGN_LEFT)
+        position = Point(HUD_MARGIN, HUD_MARGIN)
         label = Label(text, position)
         cast.add_actor(SCORE_GROUP, label)
 
@@ -141,18 +137,18 @@ class SceneManager:
         cast.clear_actors(STATS_GROUP)
         stats = Stats()
         cast.add_actor(STATS_GROUP, stats)
-
-    # def _add_racket(self, cast):
-    #     cast.clear_actors(RACKET_GROUP)
-    #     x = CENTER_X - RACKET_WIDTH / 2
-    #     y = SCREEN_HEIGHT - RACKET_HEIGHT
-    #     position = Point(x, y)
-    #     size = Point(RACKET_WIDTH, RACKET_HEIGHT)
-    #     velocity = Point(0, 0)
-    #     body = Body(position, size, velocity)
-    #     animation = Animation(RACKET_IMAGES, RACKET_RATE)
-    #     racket = Racket(body, animation)
-    #     cast.add_actor(RACKET_GROUP, racket)
+    
+    def _add_grid(self, cast):
+        cast.clear_actors(GRID_GROUP)
+        x = CENTER_X - GRID_WIDTH / 2
+        y = 0
+        position = Point(x, y)
+        size = Point(GRID_WIDTH, GRID_HEIGHT)
+        velocity = Point(0, 0)
+        body = Body(position, size, velocity)
+        image = Image(GRID_IMAGE)
+        grid = Grid(body, image, velocity)
+        cast.add_actor(GRID_GROUP, grid)
 
     # ----------------------------------------------------------------------------------------------
     # scripting methods
@@ -169,6 +165,7 @@ class SceneManager:
         script.clear_actions(OUTPUT)
         script.add_action(OUTPUT, self.START_DRAWING_ACTION)
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
+        script.add_action(OUTPUT, self.DRAW_GRID_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
