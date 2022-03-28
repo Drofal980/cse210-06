@@ -69,7 +69,7 @@ class SceneManager:
     
     def _prepare_new_game(self, cast, script):
         self._add_stats(cast)
-        self._add_level(cast)
+        self._add_next(cast)
         self._add_score(cast)
         self._add_dialog(cast, ENTER_TO_START)
 
@@ -123,12 +123,12 @@ class SceneManager:
         label = Label(text, position)
         cast.add_actor(DIALOG_GROUP, label)
 
-    def _add_level(self, cast):
-        cast.clear_actors(LEVEL_GROUP)
-        text = Text(LEVEL_FORMAT, FONT_FILE, FONT_SMALL, ALIGN_LEFT)
+    def _add_next(self, cast):
+        cast.clear_actors(NEXT_GROUP)
+        text = Text(NEXT_FORMAT, FONT_FILE, FONT_SMALL, ALIGN_LEFT)
         position = Point(HUD_MARGIN, HUD_MARGIN)
         label = Label(text, position)
-        cast.add_actor(LEVEL_GROUP, label)
+        cast.add_actor(NEXT_GROUP, label)
 
     def _add_score(self, cast):
         cast.clear_actors(SCORE_GROUP)

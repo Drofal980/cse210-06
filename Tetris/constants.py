@@ -78,9 +78,9 @@ STATS_GROUP = "stats"
 
 # HUD
 HUD_MARGIN = 15
-LEVEL_GROUP = "level"
+NEXT_GROUP = "level"
 SCORE_GROUP = "score"
-LEVEL_FORMAT = "LEVEL: {}"
+NEXT_FORMAT = "NEXT: {}"
 SCORE_FORMAT = "SCORE: {}"
 
 # BRICK
