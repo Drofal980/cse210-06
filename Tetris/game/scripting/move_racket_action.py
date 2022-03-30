@@ -17,10 +17,10 @@ class MoveRacketAction(Action):
         
         position = position.add(velocity)
 
-        if x < 0:
-            position = Point(0, position.get_y())
-        elif x > (SCREEN_WIDTH - RACKET_WIDTH):
-            position = Point(SCREEN_WIDTH - RACKET_WIDTH, position.get_y())
+        if x < FIELD_LEFT:
+            position = Point(FIELD_LEFT, position.get_y())
+        elif x > (FIELD_RIGHT - RACKET_WIDTH):
+            position = Point(FIELD_RIGHT - RACKET_WIDTH, position.get_y())
             
         body.set_position(position)
         

@@ -193,14 +193,15 @@ class SceneManager:
 
     def _add_racket(self, cast):
         cast.clear_actors(RACKET_GROUP)
-        x = CENTER_X - RACKET_WIDTH / 2
-        y = SCREEN_HEIGHT - RACKET_HEIGHT
+        grid = cast.get_first_actor(GRID_GROUP)
+        x = CENTER_X - GRID_WIDTH / 2
+        y = 0
         position = Point(x, y)
         size = Point(RACKET_WIDTH, RACKET_HEIGHT)
         velocity = Point(0, 0)
         body = Body(position, size, velocity)
-        animation = Animation(RACKET_IMAGES, RACKET_RATE)
-        racket = Racket(body, animation)
+        image = Image(RACKET_IMAGE)
+        racket = Racket(body, image)
         cast.add_actor(RACKET_GROUP, racket)
 
     # ----------------------------------------------------------------------------------------------

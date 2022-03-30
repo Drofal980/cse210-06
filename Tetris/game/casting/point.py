@@ -72,3 +72,15 @@ class Point:
         new_x = self._x * -1
         new_y = self._y * -1
         return Point(new_x, new_y)
+    
+    def scale(self, factor):
+        """
+        Scales the point by the provided factor.
+
+        Args:
+            factor (int): The amount to scale.
+            
+        Returns:
+            Point: A new Point that is scaled.
+        """
+        return Point(self._x * factor, self._y * factor)

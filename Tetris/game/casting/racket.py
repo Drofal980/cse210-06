@@ -6,25 +6,25 @@ from game.casting.point import Point
 class Racket(Actor):
     """A implement used to hit and bounce the ball in the game."""
     
-    def __init__(self, body, animation, debug = False):
+    def __init__(self, body, image, debug = False):
         """Constructs a new Bat.
         
         Args:Args:
             body: A new instance of Body.
-            animation: A new instance of Animation.
+            image: A new instance of Image.
             debug: If it is being debugged. 
         """
         super().__init__(debug)
         self._body = body
-        self._animation = animation
+        self._image = image
 
-    def get_animation(self):
-        """Gets the bat's animation.
+    def get_image(self):
+        """Gets the bat's image.
         
         Returns:
-            An instance of Animation.
+            An instance of Image.
         """
-        return self._animation
+        return self._image
 
     def get_body(self):
         """Gets the bat's body.
