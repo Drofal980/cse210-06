@@ -15,7 +15,7 @@ class MoveRacketAction(Action):
         position = body.get_position()
         x = position.get_x()
         
-        position = position.add(velocity)
+        position = position.add(velocity.scale(GRID_CELL_SIZE))
 
         if x < FIELD_LEFT:
             position = Point(FIELD_LEFT, position.get_y())

@@ -237,7 +237,6 @@ class SceneManager:
         #Turn Order Checking
         script.clear_actions(UPDATE)
         
-        script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
         script.add_action(UPDATE, self.DRAW_BRICKS_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
