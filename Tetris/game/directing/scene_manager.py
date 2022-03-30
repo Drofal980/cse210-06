@@ -6,6 +6,7 @@ from game.casting.brick import Brick
 from game.casting.image import Image
 from game.casting.label import Label
 from game.casting.point import Point
+from game.casting.racket import Racket
 from game.casting.stats import Stats
 from game.casting.text import Text 
 from game.casting.grid import Grid
@@ -13,13 +14,16 @@ from game.scripting.change_scene_action import ChangeSceneAction
 from game.scripting.check_over_action import CheckOverAction
 from game.scripting.collide_borders_action import CollideBordersAction
 from game.scripting.collide_brick_action import CollideBrickAction
+from game.scripting.control_racket_action import ControlRacketAction
 from game.scripting.draw_dialog_action import DrawDialogAction
 from game.scripting.draw_hud_action import DrawHudAction
 from game.scripting.draw_grid_action import DrawGridAction
 from game.scripting.draw_bricks_action import DrawBricksAction
+from game.scripting.draw_racket_action import DrawRacketAction
 from game.scripting.end_drawing_action import EndDrawingAction
 from game.scripting.initialize_devices_action import InitializeDevicesAction
 from game.scripting.load_assets_action import LoadAssetsAction
+from game.scripting.move_racket_action import MoveRacketAction
 from game.scripting.play_sound_action import PlaySoundAction
 from game.scripting.release_devices_action import ReleaseDevicesAction
 from game.scripting.start_drawing_action import StartDrawingAction
@@ -42,13 +46,16 @@ class SceneManager:
     CHECK_OVER_ACTION = CheckOverAction()
     COLLIDE_BORDERS_ACTION = CollideBordersAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
+    CONTROL_RACKET_ACTION = ControlRacketAction(KEYBOARD_SERVICE)
     DRAW_DIALOG_ACTION = DrawDialogAction(VIDEO_SERVICE)
     DRAW_HUD_ACTION = DrawHudAction(VIDEO_SERVICE)
     DRAW_GRID_ACTION = DrawGridAction(VIDEO_SERVICE)
     DRAW_BRICKS_ACTION = DrawBricksAction(VIDEO_SERVICE)
+    DRAW_RACKET_ACTION= DrawRacketAction(VIDEO_SERVICE)
     END_DRAWING_ACTION = EndDrawingAction(VIDEO_SERVICE)
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
+    MOVE_RACKET_ACTION = MoveRacketAction()
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -77,6 +84,7 @@ class SceneManager:
         self._add_grid(cast)
         self._add_bricks(cast)
         self._add_score(cast)
+        self._add_racket(cast)
         self._add_dialog(cast, ENTER_TO_START)
 
         self._add_initialize_script(script)
@@ -88,6 +96,9 @@ class SceneManager:
         self._add_release_script(script)
         
     def _prepare_next_level(self, cast, script):
+        self._add_grid(cast)
+        self._add_bricks(cast)
+        self._add_racket(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
 
         script.clear_actions(INPUT)
@@ -96,6 +107,9 @@ class SceneManager:
         script.add_action(OUTPUT, PlaySoundAction(self.AUDIO_SERVICE, WELCOME_SOUND))
         
     def _prepare_try_again(self, cast, script):
+        self._add_grid(cast)
+        self._add_bricks(cast)
+        self._add_racket(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
 
         script.clear_actions(INPUT)
@@ -107,6 +121,7 @@ class SceneManager:
         cast.clear_actors(DIALOG_GROUP)
 
         script.clear_actions(INPUT)
+        script.add_action(INPUT, self.CONTROL_RACKET_ACTION)
         self._add_update_script(script)
         self._add_output_script(script)
 
@@ -158,15 +173,6 @@ class SceneManager:
         grid = cast.get_first_actor(GRID_GROUP)
         board = grid.get_matrix()
 
-        #TESTING
-        board[5][1] = 1
-        board[5][2] = 1
-        board[5][3] = 1
-        board[5][4] = 1
-        board[5][5] = 1
-        board[5][6] = 1
-
-
         for r in range(GRID_ROWS):
             for c in range(GRID_COLUMNS):
                 if board[r][c] != 0:
@@ -185,6 +191,17 @@ class SceneManager:
                     brick = Brick(body, image, points)
                     cast.add_actor(BRICK_GROUP, brick)
 
+    def _add_racket(self, cast):
+        cast.clear_actors(RACKET_GROUP)
+        x = CENTER_X - RACKET_WIDTH / 2
+        y = SCREEN_HEIGHT - RACKET_HEIGHT
+        position = Point(x, y)
+        size = Point(RACKET_WIDTH, RACKET_HEIGHT)
+        velocity = Point(0, 0)
+        body = Body(position, size, velocity)
+        animation = Animation(RACKET_IMAGES, RACKET_RATE)
+        racket = Racket(body, animation)
+        cast.add_actor(RACKET_GROUP, racket)
 
     # ----------------------------------------------------------------------------------------------
     # scripting methods
@@ -203,6 +220,7 @@ class SceneManager:
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.DRAW_GRID_ACTION)
         script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
+        script.add_action(OUTPUT, self.DRAW_RACKET_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
@@ -215,5 +233,10 @@ class SceneManager:
         script.add_action(UNLOAD, self.UNLOAD_ASSETS_ACTION)
         
     def _add_update_script(self, script):
+        #Turn Order Checking
         script.clear_actions(UPDATE)
+        
+        script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
+        script.add_action(UPDATE, self.DRAW_BRICKS_ACTION)
+        script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
