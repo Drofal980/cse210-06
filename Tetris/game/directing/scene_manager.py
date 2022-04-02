@@ -101,7 +101,6 @@ class SceneManager:
         
     def _prepare_next_level(self, cast, script):
         self._add_grid(cast)
-        self._add_racket(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
 
         script.clear_actions(INPUT)
@@ -217,9 +216,8 @@ class SceneManager:
     def _add_update_script(self, script):
         #Turn Order Checking
         script.clear_actions(UPDATE)
-        script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
-        script.add_action(UPDATE, self.CHECK_OVER_ACTION)
         script.add_action(UPDATE, self.UPDATE_BRICK_ACTION)
         script.add_action(UPDATE, self.DRAW_BRICKS_ACTION)
+        script.add_action(UPDATE, self.CHECK_OVER_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
         script.add_action(UPDATE, TimedDelayAction(GRID_UPDATE_TIME))

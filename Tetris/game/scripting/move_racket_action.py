@@ -29,4 +29,4 @@ class MoveRacketAction(Action):
             position = Point(FIELD_RIGHT - RACKET_WIDTH, position.get_y())
             
         body.set_position(position)
-        
+        return
