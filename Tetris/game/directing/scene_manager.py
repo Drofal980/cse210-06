@@ -173,13 +173,15 @@ class SceneManager:
         grid = cast.get_first_actor(GRID_GROUP)
         board = grid.get_matrix()
 
+        #TESTING
+        board[5][1] = 1
+
         for r in range(GRID_ROWS):
             for c in range(GRID_COLUMNS):
                 if board[r][c] != 0:
 
                     x = FIELD_LEFT + c * BRICK_WIDTH
                     y = FIELD_TOP + r * BRICK_HEIGHT
-                    points = BRICK_POINTS
 
                     position = Point(x, y)
                     size = Point(BRICK_WIDTH, BRICK_HEIGHT)
@@ -188,7 +190,7 @@ class SceneManager:
                     body = Body(position, size, velocity)
                     image = Image(BRICK_IMAGES['b'][0])
 
-                    brick = Brick(body, image, points)
+                    brick = Brick(body, image)
                     cast.add_actor(BRICK_GROUP, brick)
 
     def _add_racket(self, cast):
