@@ -175,7 +175,7 @@ class SceneManager:
     def _add_racket(self, cast):
         cast.clear_actors(RACKET_GROUP)
         grid = cast.get_first_actor(GRID_GROUP)
-        x = CENTER_X - GRID_WIDTH / 2
+        x = CENTER_X - BRICK_WIDTH
         y = 0
         position = Point(x, y)
         size = Point(RACKET_WIDTH, RACKET_HEIGHT)
@@ -217,9 +217,9 @@ class SceneManager:
     def _add_update_script(self, script):
         #Turn Order Checking
         script.clear_actions(UPDATE)
+        script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
         script.add_action(UPDATE, self.UPDATE_BRICK_ACTION)
         script.add_action(UPDATE, self.DRAW_BRICKS_ACTION)
-        # script.add_action(UPDATE, self.MOVE_BRICK_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
         script.add_action(UPDATE, TimedDelayAction(GRID_UPDATE_TIME))

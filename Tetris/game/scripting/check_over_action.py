@@ -5,16 +5,13 @@ from game.scripting.action import Action
 class CheckOverAction(Action):
 
     def __init__(self):
-        pass
+        self.move_counter = 0
         
     def execute(self, cast, script, callback):
         #Todo: Use this to check if row is complete or something
-        grid = cast.get_first_actor(GRID_GROUP)
-        board = grid.get_matrix()
-        
-        for r in range(GRID_ROWS):
-            # Checking if no bricks are left
-            if all(board[r]):
-                board.remove(board[r])
-                board.append([0 for i in range(GRID_COLUMNS)])
-                grid.set_matrix(board)
+        racket = cast.get_first_actor(RACKET_GROUP)
+        if self.move_counter >= RACKET_FALL_COUNTER_MAX:
+            racket.move_down()
+            self.move_counter = 0
+        else:
+            self.move_counter += RACKET_FALL_COUNTER_MAX

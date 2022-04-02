@@ -51,6 +51,11 @@ class Racket(Actor):
         velocity = Point(RACKET_VELOCITY, 0)
         self._body.set_velocity(velocity)
     
+    def move_down(self):
+        """moves the bat to the right."""
+        velocity = Point(0, RACKET_VELOCITY)
+        self._body.set_velocity(velocity)
+    
     def stop_moving(self):
         """Stops the bat from moving."""
         velocity = Point(0, 0)
