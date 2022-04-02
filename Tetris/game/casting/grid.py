@@ -19,6 +19,18 @@ class Grid(Actor):
         self._image = image
         self._matrix = matrix
 
+        board = self.get_matrix()
+        board[5][1] = 1
+        board[5][2] = 1
+        board[5][3] = 1
+        board[5][4] = 1
+
+        board[2][1] = 1
+        board[2][2] = 1
+        board[2][3] = 1
+        board[2][4] = 1
+        self.set_matrix(board)
+
     def get_body(self):
         """Gets the grid's body.
         

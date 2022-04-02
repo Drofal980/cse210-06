@@ -24,10 +24,13 @@ from game.scripting.end_drawing_action import EndDrawingAction
 from game.scripting.initialize_devices_action import InitializeDevicesAction
 from game.scripting.load_assets_action import LoadAssetsAction
 from game.scripting.move_racket_action import MoveRacketAction
+from game.scripting.move_brick_action import MoveBrickAction
+from game.scripting.update_bricks_action import UpdateBricksAction
 from game.scripting.play_sound_action import PlaySoundAction
 from game.scripting.release_devices_action import ReleaseDevicesAction
 from game.scripting.start_drawing_action import StartDrawingAction
 from game.scripting.timed_change_scene_action import TimedChangeSceneAction
+from game.scripting.timed_delay_action import TimedDelayAction
 from game.scripting.unload_assets_action import UnloadAssetsAction
 from game.services.raylib.raylib_audio_service import RaylibAudioService
 from game.services.raylib.raylib_keyboard_service import RaylibKeyboardService
@@ -56,6 +59,8 @@ class SceneManager:
     INITIALIZE_DEVICES_ACTION = InitializeDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
     MOVE_RACKET_ACTION = MoveRacketAction()
+    MOVE_BRICK_ACTION = MoveBrickAction()
+    UPDATE_BRICK_ACTION = UpdateBricksAction()
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
     UNLOAD_ASSETS_ACTION = UnloadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
@@ -82,7 +87,6 @@ class SceneManager:
     def _prepare_new_game(self, cast, script):
         self._add_stats(cast)
         self._add_grid(cast)
-        self._add_bricks(cast)
         self._add_score(cast)
         self._add_racket(cast)
         self._add_dialog(cast, ENTER_TO_START)
@@ -97,7 +101,6 @@ class SceneManager:
         
     def _prepare_next_level(self, cast, script):
         self._add_grid(cast)
-        self._add_bricks(cast)
         self._add_racket(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
 
@@ -108,7 +111,6 @@ class SceneManager:
         
     def _prepare_try_again(self, cast, script):
         self._add_grid(cast)
-        self._add_bricks(cast)
         self._add_racket(cast)
         self._add_dialog(cast, PREP_TO_LAUNCH)
 
@@ -169,30 +171,6 @@ class SceneManager:
         grid = Grid(body, image, matrix)
         cast.add_actor(GRID_GROUP, grid)
 
-    def _add_bricks(self, cast):
-        grid = cast.get_first_actor(GRID_GROUP)
-        board = grid.get_matrix()
-
-        #TESTING
-        board[5][1] = 1
-
-        for r in range(GRID_ROWS):
-            for c in range(GRID_COLUMNS):
-                if board[r][c] != 0:
-
-                    x = FIELD_LEFT + c * BRICK_WIDTH
-                    y = FIELD_TOP + r * BRICK_HEIGHT
-
-                    position = Point(x, y)
-                    size = Point(BRICK_WIDTH, BRICK_HEIGHT)
-                    velocity = Point(0, 0)
-
-                    body = Body(position, size, velocity)
-                    image = Image(BRICK_IMAGES['b'][0])
-
-                    brick = Brick(body, image)
-                    cast.add_actor(BRICK_GROUP, brick)
-
     def _add_racket(self, cast):
         cast.clear_actors(RACKET_GROUP)
         grid = cast.get_first_actor(GRID_GROUP)
@@ -223,7 +201,7 @@ class SceneManager:
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.DRAW_GRID_ACTION)
         script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
-        script.add_action(OUTPUT, self.DRAW_RACKET_ACTION)
+        # script.add_action(OUTPUT, self.DRAW_RACKET_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
@@ -238,7 +216,9 @@ class SceneManager:
     def _add_update_script(self, script):
         #Turn Order Checking
         script.clear_actions(UPDATE)
-        
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
+        script.add_action(UPDATE, self.UPDATE_BRICK_ACTION)
         script.add_action(UPDATE, self.DRAW_BRICKS_ACTION)
+        script.add_action(UPDATE, self.MOVE_BRICK_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
+        script.add_action(UPDATE, TimedDelayAction(GRID_UPDATE_TIME))
