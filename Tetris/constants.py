@@ -28,9 +28,9 @@ FONT_LARGE = 48
 
 # SOUND
 SOUNDS_PATH = "cse210-06/Tetris/assets/sounds"
-BOUNCE_SOUND = SOUNDS_PATH + "\\boing.wav"
-WELCOME_SOUND = SOUNDS_PATH + "\\start.wav"
-OVER_SOUND = SOUNDS_PATH + "\\over.wav"
+BOUNCE_SOUND = SOUNDS_PATH + "\\boing.mp3"
+WELCOME_SOUND = SOUNDS_PATH + "\\start.mp3"
+OVER_SOUND = SOUNDS_PATH + "\\over.mp3"
 
 # TEXT
 ALIGN_CENTER = 0
