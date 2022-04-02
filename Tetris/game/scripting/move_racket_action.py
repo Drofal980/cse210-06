@@ -14,6 +14,12 @@ class MoveRacketAction(Action):
         velocity = body.get_velocity()
         position = body.get_position()
         x = position.get_x()
+
+        # Prevents racket from bouncing off the edge
+        if x == FIELD_LEFT and velocity.get_x() < 0:
+            velocity = Point(0, velocity.get_y())
+        elif x == FIELD_RIGHT - RACKET_WIDTH and velocity.get_x() > 0:
+            velocity = Point(0, velocity.get_y())
         
         position = position.add(velocity.scale(GRID_CELL_SIZE))
 

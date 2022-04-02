@@ -121,7 +121,8 @@ class SceneManager:
 
     def _prepare_in_play(self, cast, script):
         cast.clear_actors(DIALOG_GROUP)
-
+        self._add_grid(cast)
+        self._add_racket(cast)
         script.clear_actions(INPUT)
         script.add_action(INPUT, self.CONTROL_RACKET_ACTION)
         self._add_update_script(script)
@@ -178,7 +179,7 @@ class SceneManager:
         y = 0
         position = Point(x, y)
         size = Point(RACKET_WIDTH, RACKET_HEIGHT)
-        velocity = Point(0, 0)
+        velocity = Point(0, 1)
         body = Body(position, size, velocity)
         image = Image(RACKET_IMAGE)
         racket = Racket(body, image)
@@ -201,7 +202,7 @@ class SceneManager:
         script.add_action(OUTPUT, self.DRAW_HUD_ACTION)
         script.add_action(OUTPUT, self.DRAW_GRID_ACTION)
         script.add_action(OUTPUT, self.DRAW_BRICKS_ACTION)
-        # script.add_action(OUTPUT, self.DRAW_RACKET_ACTION)
+        script.add_action(OUTPUT, self.DRAW_RACKET_ACTION)
         script.add_action(OUTPUT, self.DRAW_DIALOG_ACTION)
         script.add_action(OUTPUT, self.END_DRAWING_ACTION)
 
@@ -219,6 +220,6 @@ class SceneManager:
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
         script.add_action(UPDATE, self.UPDATE_BRICK_ACTION)
         script.add_action(UPDATE, self.DRAW_BRICKS_ACTION)
-        script.add_action(UPDATE, self.MOVE_BRICK_ACTION)
+        # script.add_action(UPDATE, self.MOVE_BRICK_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
         script.add_action(UPDATE, TimedDelayAction(GRID_UPDATE_TIME))
