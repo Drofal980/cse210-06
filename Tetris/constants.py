@@ -45,6 +45,8 @@ PURPLE = Color(255, 0, 255)
 # KEYS
 LEFT = "left"
 RIGHT = "right"
+DOWN = "down"
+UP = "up"
 SPACE = "space"
 ENTER = "enter"
 PAUSE = "p"

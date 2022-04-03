@@ -60,3 +60,8 @@ class Racket(Actor):
         """Stops the bat from moving."""
         velocity = Point(0, 0)
         self._body.set_velocity(velocity)
+    
+    def rotate(self):
+        """rotates the pieces of the bat."""
+        # Todo: change the orientation of the pieces making up the racket
+        raise NotImplementedError()

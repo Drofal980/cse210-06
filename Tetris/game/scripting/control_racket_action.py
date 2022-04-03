@@ -12,6 +12,10 @@ class ControlRacketAction(Action):
         if self._keyboard_service.is_key_down(LEFT): 
             racket.swing_left()
         elif self._keyboard_service.is_key_down(RIGHT): 
-            racket.swing_right()  
+            racket.swing_right()
+        elif self._keyboard_service.is_key_down(DOWN): 
+            racket.move_down()
+        elif self._keyboard_service.is_key_down(UP): 
+            racket.rotate()    
         else: 
             racket.stop_moving()
