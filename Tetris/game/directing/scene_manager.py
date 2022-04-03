@@ -12,6 +12,7 @@ from game.casting.text import Text
 from game.casting.grid import Grid
 from game.scripting.change_scene_action import ChangeSceneAction
 from game.scripting.check_over_action import CheckOverAction
+from game.scripting.check_to_place_action import CheckToPlaceAction
 from game.scripting.collide_borders_action import CollideBordersAction
 from game.scripting.collide_brick_action import CollideBrickAction
 from game.scripting.control_racket_action import ControlRacketAction
@@ -25,6 +26,7 @@ from game.scripting.initialize_devices_action import InitializeDevicesAction
 from game.scripting.load_assets_action import LoadAssetsAction
 from game.scripting.move_racket_action import MoveRacketAction
 from game.scripting.move_brick_action import MoveBrickAction
+from game.scripting.racket_fall_action import RacketFallAction
 from game.scripting.update_bricks_action import UpdateBricksAction
 from game.scripting.play_sound_action import PlaySoundAction
 from game.scripting.release_devices_action import ReleaseDevicesAction
@@ -47,6 +49,7 @@ class SceneManager:
     VIDEO_SERVICE = RaylibVideoService(GAME_NAME, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     CHECK_OVER_ACTION = CheckOverAction()
+    CHECK_TO_PLACE_ACTION = CheckToPlaceAction()
     COLLIDE_BORDERS_ACTION = CollideBordersAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     CONTROL_RACKET_ACTION = ControlRacketAction(KEYBOARD_SERVICE)
@@ -60,6 +63,7 @@ class SceneManager:
     LOAD_ASSETS_ACTION = LoadAssetsAction(AUDIO_SERVICE, VIDEO_SERVICE)
     MOVE_RACKET_ACTION = MoveRacketAction()
     MOVE_BRICK_ACTION = MoveBrickAction()
+    RACKET_FALL_ACTION = RacketFallAction()
     UPDATE_BRICK_ACTION = UpdateBricksAction()
     RELEASE_DEVICES_ACTION = ReleaseDevicesAction(AUDIO_SERVICE, VIDEO_SERVICE)
     START_DRAWING_ACTION = StartDrawingAction(VIDEO_SERVICE)
@@ -216,8 +220,9 @@ class SceneManager:
     def _add_update_script(self, script):
         #Turn Order Checking
         script.clear_actions(UPDATE)
-        script.add_action(UPDATE, self.UPDATE_BRICK_ACTION)
-        script.add_action(UPDATE, self.DRAW_BRICKS_ACTION)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
+        script.add_action(UPDATE, self.RACKET_FALL_ACTION)
+        script.add_action(UPDATE, self.CHECK_TO_PLACE_ACTION)
+        script.add_action(UPDATE, self.UPDATE_BRICK_ACTION)
         script.add_action(UPDATE, self.MOVE_RACKET_ACTION)
         script.add_action(UPDATE, TimedDelayAction(GRID_UPDATE_TIME))

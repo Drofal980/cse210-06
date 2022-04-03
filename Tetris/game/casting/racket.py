@@ -1,6 +1,7 @@
 from constants import *
 from game.casting.actor import Actor
 from game.casting.point import Point
+from game.casting.grid import Grid
 
 
 class Racket(Actor):
@@ -59,8 +60,8 @@ class Racket(Actor):
     def stop_moving(self):
         """Stops the bat from moving."""
         velocity = Point(0, 0)
-        self._body.set_velocity(velocity)
-    
+        self._body.set_velocity(velocity)      
+
     def rotate(self):
         """rotates the pieces of the bat."""
         # Todo: change the orientation of the pieces making up the racket

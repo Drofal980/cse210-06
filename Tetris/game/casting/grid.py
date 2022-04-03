@@ -44,9 +44,33 @@ class Grid(Actor):
         return self._matrix
     
     def set_matrix(self, matrix):
-        """Sets the grid's matrix to the given value.
+        """Sets the grid's matrix to the given matrix.
 
         Args:
-            matrix: A matrix containing a list of integers.
+            matrix: A List containing lists of integers.
         """
         self._matrix = matrix
+    
+    def set_grid_position(self, row, column, value = int):
+        """Sets a value in the grid's matrix to the given value.
+
+        Args:
+            point: An instance of Point
+            value: An integar value
+        """
+
+        board = self.get_matrix()
+        board[row][column] = value
+        self.set_matrix(board)
+    
+    def get_grid_position_value(self, row = int, column = int):
+        """Returns a value in a position in the grid's matrix.
+
+        Args:
+            column: An integar describing the position in a list
+            row: An integar describing the position in a list
+        """
+        board = self.get_matrix()
+        value = board[row][column]
+        return value
+        
