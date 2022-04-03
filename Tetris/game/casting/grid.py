@@ -72,5 +72,6 @@ class Grid(Actor):
         """
         board = self.get_matrix()
         value = board[row][column]
+        print(f"row: {row}, column: {column}")
         return value
         

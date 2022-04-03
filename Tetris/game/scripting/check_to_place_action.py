@@ -11,19 +11,22 @@ class CheckToPlaceAction(Action):
         pass
         
     def execute(self, cast, script, callback):
-        #Todo: Use this to check if row is complete or something
+        # Racket Details
         racket = cast.get_first_actor(RACKET_GROUP)
         body = racket.get_body()
         position = body.get_position()
-        grid = cast.get_first_actor(GRID_GROUP)
-        x = position.get_x()
-        y = position.get_y()
-        column = int((x-FIELD_LEFT) / BRICK_WIDTH)
-        row = int((y-FIELD_TOP) / BRICK_HEIGHT)
 
-        if position.get_y() >= FIELD_BOTTOM - BRICK_HEIGHT or grid.get_grid_position_value(row+1, column) == 1:
+        # Grid Details
+        grid = cast.get_first_actor(GRID_GROUP)
+        grid_position = racket.get_location_on_grid()
+        column = grid_position.get_x()
+        row = grid_position.get_y()
+        if_block_below = True if (row+1 < 24 and grid.get_grid_position_value(row+1, column) == 1) else False
+
+        if position.get_y() >= FIELD_BOTTOM - BRICK_HEIGHT or if_block_below:
             # Sets value in board where Racket is
             grid.set_grid_position(row, column, 1)
             #Todo: Change current piece
             body.set_position(Point(CENTER_X - BRICK_WIDTH, BRICK_WIDTH))
         
+
