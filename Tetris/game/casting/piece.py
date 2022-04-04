@@ -2,7 +2,7 @@ from game.casting.actor import Actor
 
 
 class Piece(Actor):
-    """A solid, rectangular object that can be broken."""
+    """A collection of Brick objects"""
 
     def __init__(self, body, image, format, debug = False):
         """Constructs a new figure of Bricks.
