@@ -13,6 +13,7 @@ from game.casting.grid import Grid
 from game.scripting.change_scene_action import ChangeSceneAction
 from game.scripting.check_over_action import CheckOverAction
 from game.scripting.check_to_place_action import CheckToPlaceAction
+from game.scripting.check_for_tetris import CheckForTetris
 from game.scripting.collide_borders_action import CollideBordersAction
 from game.scripting.collide_brick_action import CollideBrickAction
 from game.scripting.control_racket_action import ControlRacketAction
@@ -50,6 +51,7 @@ class SceneManager:
 
     CHECK_OVER_ACTION = CheckOverAction()
     CHECK_TO_PLACE_ACTION = CheckToPlaceAction()
+    CHECK_FOR_TETRIS = CheckForTetris()
     COLLIDE_BORDERS_ACTION = CollideBordersAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     CONTROL_RACKET_ACTION = ControlRacketAction(KEYBOARD_SERVICE)
@@ -221,6 +223,7 @@ class SceneManager:
         #Turn Order Checking
         script.clear_actions(UPDATE)
         script.add_action(UPDATE, self.CHECK_OVER_ACTION)
+        script.add_action(UPDATE, self.CHECK_FOR_TETRIS)
         script.add_action(UPDATE, self.RACKET_FALL_ACTION)
         script.add_action(UPDATE, self.CHECK_TO_PLACE_ACTION)
         script.add_action(UPDATE, self.UPDATE_BRICK_ACTION)
