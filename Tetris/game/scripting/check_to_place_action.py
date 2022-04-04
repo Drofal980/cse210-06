@@ -26,7 +26,7 @@ class CheckToPlaceAction(Action):
         if position.get_y() >= FIELD_BOTTOM - BRICK_HEIGHT or if_block_below:
             # Sets value in board where Racket is
             grid.set_grid_position(row, column, 1)
-            #Todo: Change current piece
+            #TODO: Change current piece
             body.set_position(Point(CENTER_X - BRICK_WIDTH, BRICK_WIDTH))
         
 
