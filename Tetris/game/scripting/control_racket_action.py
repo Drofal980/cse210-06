@@ -1,6 +1,5 @@
 from constants import *
 from game.scripting.action import Action
-from game.scripting.check_all_blocks_in_racket import CheckAllBlocksInRacket
 
 
 class ControlRacketAction(Action):
@@ -18,15 +17,16 @@ class ControlRacketAction(Action):
 
             print(f"R:{row} C:{column}")
             board = grid.get_matrix()
-            if self._keyboard_service.is_key_down(LEFT) and column > 0 and board[row][column-1] != 1:
-                rackets = cast.get_actors(RACKET_GROUP)
-                for racket in rackets:
-                    racket.swing_left()
+            offset = all_rackets.index(all_racket)
+            if self._keyboard_service.is_key_down(LEFT) and column-offset > 0:
+                if board[row][column-1-offset] != 1:
+                    rackets = cast.get_actors(RACKET_GROUP)
+                    for racket in rackets:
+                        racket.swing_left()
             elif self._keyboard_service.is_key_down(RIGHT) and column+1 < GRID_COLUMNS and board[row][column+1] != 1: 
                 rackets = cast.get_actors(RACKET_GROUP)
                 for racket in rackets:
                     racket.swing_right()
-
             elif self._keyboard_service.is_key_down(DOWN): 
                 rackets = cast.get_actors(RACKET_GROUP)
                 for racket in rackets:
