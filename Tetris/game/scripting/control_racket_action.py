@@ -15,7 +15,6 @@ class ControlRacketAction(Action):
             column = racket_grid_position.get_x()
             row = racket_grid_position.get_y()
 
-            print(f"R:{row} C:{column}")
             board = grid.get_matrix()
             offset = all_rackets.index(all_racket)
             if self._keyboard_service.is_key_down(LEFT) and column-offset > 0:
@@ -33,8 +32,21 @@ class ControlRacketAction(Action):
                     racket.move_down()
             elif self._keyboard_service.is_key_down(UP):
                 rackets = cast.get_actors(RACKET_GROUP)
-                for racket in rackets:
-                    racket.rotate()    
+                reference_racket = rackets[0]
+                reference_x = reference_racket.get_body.get_position.get_x()
+                reference_y = reference_racket.get_body.get_position.get_y()
+                racket = rackets[1]
+                racket_x = racket.get_body.get_position.get_x()
+                racket_y = racket.get_body.get_position.get_y()
+
+                if racket_x == reference_x:
+                    #Change y to the be same the same and x to be different
+                    pass
+                elif racket_x == reference_y:
+                    #opposite of above
+                    pass
+                # for racket in rackets:
+                #     racket.rotate()    
             else: 
                 rackets = cast.get_actors(RACKET_GROUP)
                 for racket in rackets:
