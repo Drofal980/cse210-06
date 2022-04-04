@@ -25,4 +25,4 @@ class ResetRacketAction(Action):
             grid.set_grid_position(row, column, 1)
             #TODO: Change current piece
             # Reset position
-            body.set_position(Point(position.get_x(), -GRID_CELL_SIZE))
+            body.set_position(Point(CENTER_X - GRID_CELL_SIZE, -GRID_CELL_SIZE))

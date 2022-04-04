@@ -10,3 +10,9 @@ activate displays based on matrix
 grid_deactivate erases on screen
 
 with activated values, have that create and display brick
+
+PLAN FOR SHAPES
+
+Create a class for each type of brick
+within each, set initial brick = 0
+each time to rotate, add or subtract location of other bricks relative to first brick

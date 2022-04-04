@@ -186,11 +186,12 @@ class SceneManager:
         image = Image(RACKET_IMAGE)
         racket = Racket(body, image)
         cast.add_actor(RACKET_GROUP, racket)
-        x = CENTER_X - GRID_CELL_SIZE + GRID_CELL_SIZE
-        position = Point(x, y)
-        body = Body(position, size, velocity)
-        racket_2 = Racket(body, image)
-        cast.add_actor(RACKET_GROUP, racket_2)
+        
+        # x = CENTER_X - GRID_CELL_SIZE + GRID_CELL_SIZE
+        # position = Point(x, y)
+        # body = Body(position, size, velocity)
+        # racket_2 = Racket(body, image)
+        # cast.add_actor(RACKET_GROUP, racket_2)
 
     # ----------------------------------------------------------------------------------------------
     # scripting methods
