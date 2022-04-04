@@ -9,10 +9,11 @@ class RacketFallAction(Action):
         self.move_counter = 0
         
     def execute(self, cast, script, callback):
-        racket = cast.get_first_actor(RACKET_GROUP)
-
         if self.move_counter >= RACKET_FALL_COUNTER_MAX:
-            racket.move_down()
+            rackets = cast.get_actors(RACKET_GROUP)
+
+            for racket in rackets:
+                racket.move_down()
             self.move_counter = 0
         else:
             self.move_counter += RACKET_FALL_COUNTER_RATE

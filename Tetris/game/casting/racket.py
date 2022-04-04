@@ -64,7 +64,7 @@ class Racket(Actor):
 
     def rotate(self):
         """rotates the pieces of the bat."""
-        # Todo: change the orientation of the pieces making up the racket
+        # TODO: change the orientation of the pieces making up the racket
         raise NotImplementedError()
     
     def get_location_on_grid(self):
@@ -72,7 +72,7 @@ class Racket(Actor):
         position = body.get_position()
         x = position.get_x()
         y = position.get_y()
-        column = int((x-FIELD_LEFT) / BRICK_WIDTH)
-        row = int((y-FIELD_TOP) / BRICK_HEIGHT)
+        column = int((x-FIELD_LEFT) / GRID_CELL_SIZE)
+        row = int((y-FIELD_TOP) / GRID_CELL_SIZE)
 
         return Point(column, row)

@@ -92,7 +92,6 @@ class SceneManager:
         self._add_stats(cast)
         self._add_grid(cast)
         self._add_score(cast)
-        self._add_racket(cast)
         self._add_dialog(cast, ENTER_TO_START)
 
         self._add_initialize_script(script)
@@ -179,7 +178,7 @@ class SceneManager:
         cast.clear_actors(RACKET_GROUP)
         grid = cast.get_first_actor(GRID_GROUP)
         x = CENTER_X - GRID_CELL_SIZE
-        y = 0
+        y = -GRID_CELL_SIZE
         position = Point(x, y)
         size = Point(RACKET_WIDTH, RACKET_HEIGHT)
         velocity = Point(0, 1)
@@ -187,6 +186,11 @@ class SceneManager:
         image = Image(RACKET_IMAGE)
         racket = Racket(body, image)
         cast.add_actor(RACKET_GROUP, racket)
+        x = CENTER_X - GRID_CELL_SIZE + GRID_CELL_SIZE
+        position = Point(x, y)
+        body = Body(position, size, velocity)
+        racket_2 = Racket(body, image)
+        cast.add_actor(RACKET_GROUP, racket_2)
 
     # ----------------------------------------------------------------------------------------------
     # scripting methods

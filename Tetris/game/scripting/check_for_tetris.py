@@ -24,7 +24,10 @@ class CheckForTetris(Action):
             
         # Adds to score
         stats = cast.get_first_actor(STATS_GROUP)
-        stats.add_points(POINTS_ROW_COMPLETE * row_counter)
+        points = int(POINTS_ROW_COMPLETE * row_counter)
+        stats.add_points(points)
+        #TODO: Play sound
+        # if points > 1:
         row_counter = 0
 
         
