@@ -27,6 +27,6 @@ class CheckToPlaceAction(Action):
             # Sets value in board where Racket is
             grid.set_grid_position(row, column, 1)
             #TODO: Change current piece
-            body.set_position(Point(CENTER_X - BRICK_WIDTH, BRICK_WIDTH))
+            body.set_position(Point(CENTER_X - GRID_CELL_SIZE, GRID_CELL_SIZE))
         
 

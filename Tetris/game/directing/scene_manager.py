@@ -14,7 +14,6 @@ from game.scripting.change_scene_action import ChangeSceneAction
 from game.scripting.check_over_action import CheckOverAction
 from game.scripting.check_to_place_action import CheckToPlaceAction
 from game.scripting.check_for_tetris import CheckForTetris
-from game.scripting.collide_borders_action import CollideBordersAction
 from game.scripting.collide_brick_action import CollideBrickAction
 from game.scripting.control_racket_action import ControlRacketAction
 from game.scripting.draw_dialog_action import DrawDialogAction
@@ -52,7 +51,6 @@ class SceneManager:
     CHECK_OVER_ACTION = CheckOverAction()
     CHECK_TO_PLACE_ACTION = CheckToPlaceAction()
     CHECK_FOR_TETRIS = CheckForTetris()
-    COLLIDE_BORDERS_ACTION = CollideBordersAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     COLLIDE_BRICKS_ACTION = CollideBrickAction(PHYSICS_SERVICE, AUDIO_SERVICE)
     CONTROL_RACKET_ACTION = ControlRacketAction(KEYBOARD_SERVICE)
     DRAW_DIALOG_ACTION = DrawDialogAction(VIDEO_SERVICE)
@@ -180,7 +178,7 @@ class SceneManager:
     def _add_racket(self, cast):
         cast.clear_actors(RACKET_GROUP)
         grid = cast.get_first_actor(GRID_GROUP)
-        x = CENTER_X - BRICK_WIDTH
+        x = CENTER_X - GRID_CELL_SIZE
         y = 0
         position = Point(x, y)
         size = Point(RACKET_WIDTH, RACKET_HEIGHT)

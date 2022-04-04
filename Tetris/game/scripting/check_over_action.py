@@ -11,8 +11,12 @@ class CheckOverAction(Action):
         pass
         
     def execute(self, cast, script, callback):
-        #Todo: Use this to check if row is full
-        
-        pass
+        grid = cast.get_first_actor(GRID_GROUP)
+        board = grid.get_matrix()
+
+        for column in range(GRID_COLUMNS):
+            if board[0][column] != 0:
+                #TODO: CHANGE TO END GAME SCREEN
+                pass
         
         
