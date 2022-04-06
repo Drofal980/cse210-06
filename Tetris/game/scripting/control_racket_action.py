@@ -1,5 +1,7 @@
 from constants import *
 from game.scripting.action import Action
+from game.casting.point import Point
+from game.scripting.timed_delay_action import TimedDelayAction
 
 
 class ControlRacketAction(Action):
@@ -17,8 +19,8 @@ class ControlRacketAction(Action):
 
             board = grid.get_matrix()
             offset = all_rackets.index(all_racket)
-            if self._keyboard_service.is_key_down(LEFT) and column-offset > 0:
-                if board[row][column-1-offset] != 1:
+            if self._keyboard_service.is_key_down(LEFT) and column-(offset) > 0:
+                if board[row][column-1] != 1:
                     rackets = cast.get_actors(RACKET_GROUP)
                     for racket in rackets:
                         racket.swing_left()
@@ -33,18 +35,20 @@ class ControlRacketAction(Action):
             elif self._keyboard_service.is_key_down(UP):
                 rackets = cast.get_actors(RACKET_GROUP)
                 reference_racket = rackets[0]
-                reference_x = reference_racket.get_body.get_position.get_x()
-                reference_y = reference_racket.get_body.get_position.get_y()
+                reference_x = reference_racket.get_body().get_position().get_x()
+                reference_y = reference_racket.get_body().get_position().get_y()
                 racket = rackets[1]
-                racket_x = racket.get_body.get_position.get_x()
-                racket_y = racket.get_body.get_position.get_y()
+                racket_x = racket.get_body().get_position().get_x()
+                racket_y = racket.get_body().get_position().get_y()
 
                 if racket_x == reference_x:
                     #Change y to the be same the same and x to be different
-                    pass
-                elif racket_x == reference_y:
+                    racket.get_body().set_position(Point(reference_x+GRID_CELL_SIZE, racket_y-GRID_CELL_SIZE))
+                elif racket_y == reference_y:
                     #opposite of above
-                    pass
+                    racket.get_body().set_position(Point(racket_x-GRID_CELL_SIZE, reference_y+GRID_CELL_SIZE))
+                TimedDelayAction(GRID_UPDATE_TIME)
+                return
                 # for racket in rackets:
                 #     racket.rotate()    
             else: 
